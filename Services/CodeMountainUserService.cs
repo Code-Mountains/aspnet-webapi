@@ -14,26 +14,36 @@ namespace webapi.Services
             new CodeMountainsUsers {Id = 3,FirstName ="Vivek", LastName="Daruka", Email="Vivek.daruka.office@gmail.com", PhoneNumber= "3187894199"},
             new CodeMountainsUsers {Id =4, FirstName ="Aakash", LastName="Poudel", Email="aakash.poudel.office@gmail.com", PhoneNumber= "3182355829"},
         };
-        public List<CodeMountainsUsers> AddNewUser(CodeMountainsUsers newUser)
+        public async Task<ResponseService<List<CodeMountainsUsers>>> AddNewUser(CodeMountainsUsers newUser)
         {
+            var responseService = new ResponseService<List<CodeMountainsUsers>>();
             users.Add(newUser);
-            return users;
+            responseService.Data = users;
+            return responseService ;
         }
 
-        public List<CodeMountainsUsers> getAllList()
+        public async Task<ResponseService<List<CodeMountainsUsers>>> getAllList()
         {
-            return users;
+            var responseService = new ResponseService<List<CodeMountainsUsers>>();
+            responseService.Data = users;
+            return responseService;
         }
 
-        public CodeMountainsUsers getUserById(int id)
+        public async Task<ResponseService<CodeMountainsUsers>> getUserById(int id)
         {
+            var responseService = new ResponseService<CodeMountainsUsers>();
             var user = users.FirstOrDefault(a => a.Id == id);
+
             if(user is not null){
-                return user;
+            responseService.Data = user;
+            return responseService;    
             } else {
-                throw new Exception( $"User with id: {id} not found");
-            }
-            
+                responseService.success = false;
+                responseService.Message = $"The user with id: {id} was not found";
+                return responseService;
+            }            
         }
+
+       
     }
 }

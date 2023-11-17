@@ -1,4 +1,5 @@
-using webapi.Services;
+global using webapi.Services;
+global using webapi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

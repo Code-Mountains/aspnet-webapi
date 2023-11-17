@@ -21,18 +21,18 @@ namespace webApi.Controllers
             
         }
         [HttpGet("GetAll")]
-        public ActionResult<CodeMountainsUsers> getAllUsers(){
-            return Ok(_codeMountainUserService.getAllList());
+        public async Task<ActionResult<ResponseService<CodeMountainsUsers>>> getAllUsers(){
+            return Ok(await _codeMountainUserService.getAllList());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<CodeMountainsUsers> getUserById(int id){
-            return Ok(_codeMountainUserService.getUserById(id));
+        public async Task<ActionResult<ResponseService<CodeMountainsUsers>>> getUserById(int id){
+            return Ok(await _codeMountainUserService.getUserById(id));
         }
 
         [HttpPost]
-        public ActionResult<List<CodeMountainsUsers>> addNewUser(CodeMountainsUsers newUser){
-            return Ok(_codeMountainUserService.AddNewUser(newUser));
+        public async Task<ActionResult<ResponseService<List<CodeMountainsUsers>>>> addNewUser(CodeMountainsUsers newUser){
+            return Ok(await _codeMountainUserService.AddNewUser(newUser));
         }
     }
 }
